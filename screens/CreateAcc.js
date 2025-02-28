@@ -16,7 +16,7 @@ export default function CreateAcc({ navigation }) {
       Alert.alert('Passwords do not match.');
       return;
     }
-
+//create user
     try {
       // Create user with Firebase Authentication
       await auth().createUserWithEmailAndPassword(email, password);
