@@ -70,9 +70,9 @@ export default function App() {
         <NavigationContainer>
             <Stack.Navigator initialRouteName={isLoggedIn ? "BottomTabNavigator" : "SplashScreen"}>
                 <Stack.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="LoginPage" component={LoginPage} />
-                <Stack.Screen name="CreateAcc" component={CreateAcc} />
-                <Stack.Screen name="ProfileSetup" component={ProfileSetup} />
+                <Stack.Screen name="LoginPage" component={LoginPage}options={{ headerShown: false }} />
+                <Stack.Screen name="CreateAcc" component={CreateAcc}options={{ headerShown: false }} />
+                <Stack.Screen name="ProfileSetup" component={ProfileSetup}options={{ headerShown: false }} />
                 <Stack.Screen name="ClientJobAdd" component={ClientJobAdd} />
                 <Stack.Screen name="ChatScreen" component={ChatScreen} options={{ title: "Chat" }} />
                 <Stack.Screen name="FreelancerDetails" component={FreelancerDetails} options={{ title: "Freelancer Details" }} />
