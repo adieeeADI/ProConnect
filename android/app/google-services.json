@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "74243798614",
+    "firebase_url": "https://proconnect-freelanceapp-default-rtdb.firebaseio.com",
     "project_id": "proconnect-freelanceapp",
     "storage_bucket": "proconnect-freelanceapp.firebasestorage.app"
   },

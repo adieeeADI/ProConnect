@@ -11,6 +11,15 @@ import CreateAcc from './screens/CreateAcc';
 import ClientJobAdd from './screens/ClientJobAdd';
 import ProfileSetup from './screens/ProfileSetup';
 import BottomTabNavigator from './screens/BottomTabNavigator';
+import JobDetails from './screens/JobDetails';  // ✅ Import JobDetails screen
+import ChatScreen from './screens/ChatScreen';
+import FreelancerDetails from './screens/FreeLancerDetails';
+import ChatList from './screens/ChatList';   // ✅ Import FreelancerDetails screen
+import Settings from './screens/Settings';
+import AddProject from './screens/AddProject';
+import JobListed from './screens/JobListed';
+import ProjectListed from './screens/ProjectListed';
+
 
 const Stack = createStackNavigator();
 
@@ -65,13 +74,24 @@ export default function App() {
                 <Stack.Screen name="CreateAcc" component={CreateAcc} />
                 <Stack.Screen name="ProfileSetup" component={ProfileSetup} />
                 <Stack.Screen name="ClientJobAdd" component={ClientJobAdd} />
+                <Stack.Screen name="ChatScreen" component={ChatScreen} options={{ title: "Chat" }} />
+                <Stack.Screen name="FreelancerDetails" component={FreelancerDetails} options={{ title: "Freelancer Details" }} />
+                <Stack.Screen name="ChatList" component={ChatList} />
+                <Stack.Screen name="Settings" component={Settings} />
+                <Stack.Screen  name="AddProject" component={AddProject} options={{ headerShown: false }} />
+                <Stack.Screen name="ProjectListed" component={ProjectListed}options={{ headerShown: false }}/>
+                <Stack.Screen name="JobListed" component={JobListed}options={{ headerShown: false }} />
+
                 
-                {/* ✅ Corrected BottomTabNavigator Setup */}
+                {/* ✅ Bottom Tab Navigation */}
                 <Stack.Screen 
                     name="BottomTabNavigator" 
                     component={(props) => <BottomTabNavigator {...props} handleLogout={handleLogout} />} 
                     options={{ headerShown: false }}
                 />
+
+                {/* ✅ Added Job Details Screen */}
+                <Stack.Screen name="JobDetails" component={JobDetails} options={{ title: "Job Details" }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

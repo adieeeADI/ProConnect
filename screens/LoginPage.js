@@ -80,38 +80,46 @@ export default function LoginPage({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Login</Text>
+            <Text style={styles.title}>ProConnect</Text>
 
-            <TextInput
-                style={styles.input}
-                placeholder="Enter Email"
-                placeholderTextColor="#888"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                autoCapitalize="none"
-            />
+            <View style={styles.inputContainer}>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Email"
+                    placeholderTextColor="#8e8e8e"
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                />
 
-            <TextInput
-                style={styles.input}
-                placeholder="Enter Password"
-                placeholderTextColor="#888"
-                secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-            />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Password"
+                    placeholderTextColor="#8e8e8e"
+                    secureTextEntry
+                    value={password}
+                    onChangeText={setPassword}
+                />
 
-            <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={loading}>
-                <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={loading}>
+                    <Text style={styles.buttonText}>Log In</Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('CreateAcc')}>
-                <Text style={styles.registerText}>Don't have an account? Sign up</Text>
-            </TouchableOpacity>
+                <View style={styles.dividerContainer}>
+                    <View style={styles.divider} />
+                    <Text style={styles.dividerText}>OR</Text>
+                    <View style={styles.divider} />
+                </View>
+
+                <TouchableOpacity onPress={() => navigation.navigate('CreateAcc')}>
+                    <Text style={styles.registerText}>Don't have an account? <Text style={styles.signUpText}>Sign up</Text></Text>
+                </TouchableOpacity>
+            </View>
 
             {loading && (
                 <View style={styles.loadingContainer}>
-                    <ActivityIndicator size="large" color="#007BFF" />
+                    <ActivityIndicator size="large" color="#0095f6" />
                 </View>
             )}
         </View>
@@ -123,44 +131,71 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#f7f7f7',
+        backgroundColor: '#000',
         padding: 20,
     },
     title: {
-        fontSize: 28,
+        fontSize: 35,
         fontWeight: 'bold',
-        color: '#333',
-        marginBottom: 20,
+        color: '#fff',
+        marginBottom: 40,
+        fontStyle: 'italic'
+    },
+    inputContainer: {
+        width: '100%',
+        maxWidth: 350,
     },
     input: {
         width: '100%',
-        height: 50,
-        borderRadius: 25,
-        backgroundColor: '#fff',
-        paddingLeft: 15,
-        fontSize: 16,
-        borderWidth: 1,
-        borderColor: '#ddd',
-        marginBottom: 15,
+        height: 44,
+        borderRadius: 5,
+        backgroundColor: '#262626',
+        paddingHorizontal: 15,
+        fontSize: 14,
+        color: '#fff',
+        borderWidth: 0.5,
+        borderColor: '#363636',
+        marginBottom: 12,
     },
     button: {
         width: '100%',
-        height: 50,
-        borderRadius: 25,
-        backgroundColor: '#4CAF50',
+        height: 44,
+        borderRadius: 5,
+        backgroundColor: '#0095f6',
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 20,
+        marginTop: 10,
     },
     buttonText: {
-        fontSize: 18,
+        fontSize: 14,
         color: '#fff',
-        fontWeight: 'bold',
+        fontWeight: '600',
+    },
+    dividerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 20,
+    },
+    divider: {
+        flex: 1,
+        height: 1,
+        backgroundColor: '#262626',
+    },
+    dividerText: {
+        color: '#8e8e8e',
+        paddingHorizontal: 15,
+        fontSize: 12,
+        fontWeight: '600',
     },
     registerText: {
         fontSize: 14,
-        color: '#007BFF',
-        marginTop: 10,
+        color: '#8e8e8e',
+        textAlign: 'center',
+        marginTop: 15,
+    },
+    signUpText: {
+        color: '#0095f6',
+        fontWeight: '600',
     },
     loadingContainer: {
         position: 'absolute',
@@ -168,7 +203,7 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
         justifyContent: 'center',
         alignItems: 'center',
     },

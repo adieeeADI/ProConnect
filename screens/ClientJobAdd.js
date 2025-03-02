@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, ScrollView } from 'react-native';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function Profile({ navigation }) {
     const [userType, setUserType] = useState('');
@@ -18,31 +19,18 @@ export default function Profile({ navigation }) {
             if (user) {
                 const userSnapshot = await database().ref(`/users/${user.uid}`).once('value');
                 if (userSnapshot.exists()) {
-                    setUserType(userSnapshot.val().userType);
+                    const type = userSnapshot.val().userType;
+                    setUserType(type);
+                    if (type === 'Freelancer') {
+                        navigation.replace('AddProject'); // Using replace instead of navigate
+                    }
                 }
             }
         };
         fetchUserType();
-    }, []);
+    }, [navigation]);
 
-    if (userType === '') {
-        return <Text>Loading...</Text>; // Show a loading state until userType is fetched
-    }
-
-    // 🚀 Redirect freelancers to another page
-    if (userType === 'Freelancer') {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.warning}>You are logged in as a Freelancer.</Text>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => navigation.navigate('BottomTabNavigator')} // Redirect to HomePage
-                >
-                    <Text style={styles.buttonText}>Go to Jobs</Text>
-                </TouchableOpacity>
-            </View>
-        );
-    }
+   
 
     
     const postJob = async () => {
@@ -86,106 +74,184 @@ export default function Profile({ navigation }) {
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.header}>Profile</Text>
-            {userType === 'Client' ? (
-                <>
-                    <Text style={styles.subHeader}>Post a Job</Text>
+        <ScrollView style={styles.scrollView}>
+            <View style={styles.container}>
+                <View style={styles.headerContainer}>
+                    <MaterialCommunityIcons name="briefcase-plus" size={30} color="#0095f6" />
+                    <Text style={styles.header}>Post a New Job</Text>
+                </View>
 
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Job Title"
-                        value={title}
-                        onChangeText={setTitle}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Job Description"
-                        value={description}
-                        onChangeText={setDescription}
-                        multiline
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Skills Required (comma separated)"
-                        value={skills}
-                        onChangeText={setSkills}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Budget ($)"
-                        value={budget}
-                        onChangeText={setBudget}
-                        keyboardType="numeric"
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Job Type (Fixed/Hourly)"
-                        value={jobType}
-                        onChangeText={setJobType}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Duration (e.g., 2 weeks)"
-                        value={duration}
-                        onChangeText={setDuration}
-                    />
+                {userType === 'Freelancer' ? (
+                    <View style={styles.warningContainer}>
+                        <MaterialCommunityIcons name="alert-circle" size={24} color="#FF375F" />
+                        <Text style={styles.warning}>You are logged in as a Freelancer</Text>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={() => navigation.navigate('BottomTabNavigator')}
+                        >
+                            <Text style={styles.buttonText}>Browse Jobs</Text>
+                        </TouchableOpacity>
+                    </View>
+                ) : (
+                    <View style={styles.formContainer}>
+                        <View style={styles.inputGroup}>
+                            <Text style={styles.label}>Job Title</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Enter job title"
+                                placeholderTextColor="#8e8e8e"
+                                value={title}
+                                onChangeText={setTitle}
+                            />
+                        </View>
 
-                    <TouchableOpacity style={styles.button} onPress={postJob}>
-                        <Text style={styles.buttonText}>Post Job</Text>
-                    </TouchableOpacity>
-                </>
-            ) : (
-                <Text style={styles.warning}>Only clients can post jobs.</Text>
-            )}
+                        <View style={styles.inputGroup}>
+                            <Text style={styles.label}>Description</Text>
+                            <TextInput
+                                style={[styles.input, styles.textArea]}
+                                placeholder="Describe the job requirements"
+                                placeholderTextColor="#8e8e8e"
+                                value={description}
+                                onChangeText={setDescription}
+                                multiline
+                                numberOfLines={4}
+                            />
+                        </View>
+
+                        <View style={styles.inputGroup}>
+                            <Text style={styles.label}>Required Skills</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="e.g., React Native, Firebase, UI/UX"
+                                placeholderTextColor="#8e8e8e"
+                                value={skills}
+                                onChangeText={setSkills}
+                            />
+                        </View>
+
+                        <View style={styles.rowInputs}>
+                            <View style={[styles.inputGroup, { flex: 1, marginRight: 10 }]}>
+                                <Text style={styles.label}>Budget ($)</Text>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="0.00"
+                                    placeholderTextColor="#8e8e8e"
+                                    value={budget}
+                                    onChangeText={setBudget}
+                                    keyboardType="numeric"
+                                />
+                            </View>
+
+                            <View style={[styles.inputGroup, { flex: 1 }]}>
+                                <Text style={styles.label}>Duration</Text>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="e.g., 2 weeks"
+                                    placeholderTextColor="#8e8e8e"
+                                    value={duration}
+                                    onChangeText={setDuration}
+                                />
+                            </View>
+                        </View>
+
+                        <View style={styles.inputGroup}>
+                            <Text style={styles.label}>Job Type</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Fixed/Hourly"
+                                placeholderTextColor="#8e8e8e"
+                                value={jobType}
+                                onChangeText={setJobType}
+                            />
+                        </View>
+
+                        <TouchableOpacity style={styles.button} onPress={postJob}>
+                            <MaterialCommunityIcons name="plus-circle" size={20} color="#fff" />
+                            <Text style={styles.buttonText}>Post Job</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
+            </View>
         </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
+    scrollView: {
+        flex: 1,
+        backgroundColor: '#121212',
+    },
     container: {
-        flexGrow: 1,
+        flex: 1,
         padding: 20,
-        backgroundColor: '#f8f8f8',
+        paddingBottom: 80,
+    },
+    headerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 30,
+        justifyContent: 'center',
     },
     header: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 20,
-        color: '#333',
-        textAlign: 'center',
+        color: '#fff',
+        marginLeft: 10,
     },
-    subHeader: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 10,
-        color: '#444',
+    formContainer: {
+        gap: 15,
+    },
+    inputGroup: {
+        marginBottom: 15,
+    },
+    label: {
+        color: '#fff',
+        fontSize: 16,
+        marginBottom: 8,
+        fontWeight: '500',
     },
     input: {
-        backgroundColor: '#fff',
-        padding: 12,
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: '#ddd',
-        marginBottom: 10,
+        backgroundColor: '#262626',
+        padding: 15,
+        borderRadius: 12,
+        color: '#fff',
         fontSize: 16,
+        borderWidth: 1,
+        borderColor: '#363636',
+    },
+    textArea: {
+        height: 120,
+        textAlignVertical: 'top',
+    },
+    rowInputs: {
+        flexDirection: 'row',
+        gap: 10,
     },
     button: {
-        backgroundColor: '#007BFF',
-        padding: 12,
-        borderRadius: 8,
+        backgroundColor: '#0095f6',
+        padding: 15,
+        borderRadius: 12,
         alignItems: 'center',
-        marginTop: 10,
+        marginTop: 20,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        gap: 10,
     },
     buttonText: {
         color: '#fff',
         fontSize: 16,
-        fontWeight: 'bold',
+        fontWeight: '600',
+    },
+    warningContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 20,
+        gap: 15,
     },
     warning: {
         fontSize: 16,
-        color: 'red',
+        color: '#FF375F',
         textAlign: 'center',
-        marginTop: 20,
-    },
+        marginTop: 10,
+    }
 });
