@@ -1,176 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { 
     View, 
     Text, 
-    TextInput, 
     TouchableOpacity, 
     StyleSheet, 
-    Alert,
-    ScrollView 
+    ScrollView
 } from 'react-native';
-import auth from '@react-native-firebase/auth';
-import database from '@react-native-firebase/database';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function UserSettings({ navigation }) {
-    const [name, setName] = useState('');
-    const [bio, setBio] = useState('');
-    const [skills, setSkills] = useState('');
-    const [rate, setRate] = useState('');
-    const [currentPassword, setCurrentPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmNewPassword, setConfirmNewPassword] = useState('');
-    const [loading, setLoading] = useState(true);
+export default function Settings({ navigation }) {
+    const menuItems = [
+        {
+            title: 'Update Profile',
+            icon: 'account-edit',
+            onPress: () => navigation.navigate('UpdateProfile'),
+        },
+        {
+            title: 'Buy Subscription',
+            icon: 'crown',
+            onPress: () => navigation.navigate('Subscription'),
+        },
+        {
+            title: 'Manage Account',
+            icon: 'account-cog',
+            onPress: () => navigation.navigate('ManageAccount'),
+        },
+        {
+            title: 'Terms & Policy',
+            icon: 'file-document-outline',
+            onPress: () => navigation.navigate('TermsPolicy'),
+        },
+    ];
 
-    useEffect(() => {
-        fetchUserData();
-    }, []);
-
-    const fetchUserData = async () => {
-        try {
-            const user = auth().currentUser;
-            if (user) {
-                const snapshot = await database()
-                    .ref(`/users/${user.uid}`)
-                    .once('value');
-                
-                const userData = snapshot.val();
-                if (userData) {
-                    setName(userData.name || '');
-                    setBio(userData.bio || '');
-                    setSkills(userData.skills || '');
-                    setRate(userData.rate ? userData.rate.toString() : '');
-                }
-            }
-            setLoading(false);
-        } catch (error) {
-            Alert.alert('Error', 'Failed to fetch user data');
-            setLoading(false);
-        }
-    };
-
-    const handleUpdateProfile = async () => {
-        try {
-            const user = auth().currentUser;
-            if (!user) return;
-
-            await database()
-                .ref(`/users/${user.uid}`)
-                .update({
-                    name,
-                    bio,
-                    skills,
-                    rate: parseFloat(rate) || 0,
-                });
-
-            Alert.alert('Success', 'Profile updated successfully');
-        } catch (error) {
-            Alert.alert('Error', error.message);
-        }
-    };
-
-    const handleChangePassword = async () => {
-        if (newPassword !== confirmNewPassword) {
-            Alert.alert('Error', 'New passwords do not match');
-            return;
-        }
-
-        try {
-            const user = auth().currentUser;
-            const credential = auth.EmailAuthProvider.credential(
-                user.email,
-                currentPassword
-            );
-
-            await user.reauthenticateWithCredential(credential);
-            await user.updatePassword(newPassword);
-
-            setCurrentPassword('');
-            setNewPassword('');
-            setConfirmNewPassword('');
-            Alert.alert('Success', 'Password updated successfully');
-        } catch (error) {
-            Alert.alert('Error', error.message);
-        }
-    };
+    const MenuItem = ({ item }) => (
+        <TouchableOpacity style={styles.menuItem} onPress={item.onPress}>
+            <View style={styles.menuItemContent}>
+                <MaterialCommunityIcons name={item.icon} size={24} color="#fff" />
+                <Text style={styles.menuItemText}>{item.title}</Text>
+            </View>
+            <MaterialCommunityIcons name="chevron-right" size={24} color="#8e8e8e" />
+        </TouchableOpacity>
+    );
 
     return (
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
             <Text style={styles.title}>Settings</Text>
-
-            <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Profile Information</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Full Name"
-                    placeholderTextColor="#8e8e8e"
-                    value={name}
-                    onChangeText={setName}
-                />
-                <TextInput
-                    style={[styles.input, styles.bioInput]}
-                    placeholder="Bio"
-                    placeholderTextColor="#8e8e8e"
-                    value={bio}
-                    onChangeText={setBio}
-                    multiline
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Skills (comma separated)"
-                    placeholderTextColor="#8e8e8e"
-                    value={skills}
-                    onChangeText={setSkills}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Hourly Rate ($)"
-                    placeholderTextColor="#8e8e8e"
-                    value={rate}
-                    onChangeText={setRate}
-                    keyboardType="numeric"
-                />
-                <TouchableOpacity 
-                    style={styles.button} 
-                    onPress={handleUpdateProfile}
-                >
-                    <Text style={styles.buttonText}>Update Profile</Text>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Change Password</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Current Password"
-                    placeholderTextColor="#8e8e8e"
-                    value={currentPassword}
-                    onChangeText={setCurrentPassword}
-                    secureTextEntry
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="New Password"
-                    placeholderTextColor="#8e8e8e"
-                    value={newPassword}
-                    onChangeText={setNewPassword}
-                    secureTextEntry
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Confirm New Password"
-                    placeholderTextColor="#8e8e8e"
-                    value={confirmNewPassword}
-                    onChangeText={setConfirmNewPassword}
-                    secureTextEntry
-                />
-                <TouchableOpacity 
-                    style={styles.button} 
-                    onPress={handleChangePassword}
-                >
-                    <Text style={styles.buttonText}>Change Password</Text>
-                </TouchableOpacity>
-            </View>
-        </ScrollView>
+            <ScrollView>
+                {menuItems.map((item, index) => (
+                    <MenuItem key={index} item={item} />
+                ))}
+            </ScrollView>
+        </View>
     );
 }
 
@@ -187,44 +67,22 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         marginTop: 20,
     },
-    section: {
-        marginBottom: 30,
-    },
-    sectionTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#fff',
-        marginBottom: 15,
-    },
-    input: {
-        width: '100%',
-        height: 44,
-        borderRadius: 5,
-        backgroundColor: '#262626',
-        paddingHorizontal: 15,
-        fontSize: 14,
-        color: '#fff',
-        borderWidth: 0.5,
-        borderColor: '#363636',
-        marginBottom: 12,
-    },
-    bioInput: {
-        height: 80,
-        textAlignVertical: 'top',
-        paddingTop: 12,
-    },
-    button: {
-        width: '100%',
-        height: 44,
-        borderRadius: 5,
-        backgroundColor: '#0095f6',
-        justifyContent: 'center',
+    menuItem: {
+        flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 10,
+        justifyContent: 'space-between',
+        paddingVertical: 15,
+        paddingHorizontal: 5,
+        borderBottomWidth: 1,
+        borderBottomColor: '#262626',
     },
-    buttonText: {
+    menuItemContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    menuItemText: {
         color: '#fff',
-        fontSize: 14,
-        fontWeight: '600',
-    },
+        fontSize: 16,
+        marginLeft: 15,
+    }
 });

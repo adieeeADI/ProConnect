@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, Text, Alert, StatusBar } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
 export default function CreateAcc({ navigation }) {
@@ -35,7 +35,9 @@ export default function CreateAcc({ navigation }) {
   };
 
   return (
+
     <View style={styles.container}>
+        <StatusBar backgroundColor="#000" barStyle="light-content" />
         <Text style={styles.title}>ProConnect</Text>
 
         <View style={styles.inputContainer}>

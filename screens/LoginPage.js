@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, TouchableOpacity, StyleSheet, Text, Alert, ActivityIndicator } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, Text, Alert, ActivityIndicator, StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
@@ -80,6 +80,7 @@ export default function LoginPage({ navigation }) {
 
     return (
         <View style={styles.container}>
+            <StatusBar backgroundColor="#000" barStyle="light-content" />
             <Text style={styles.title}>ProConnect</Text>
 
             <View style={styles.inputContainer}>
@@ -123,6 +124,7 @@ export default function LoginPage({ navigation }) {
                 </View>
             )}
         </View>
+        
     );
 }
 

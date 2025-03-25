@@ -7,7 +7,8 @@ import {
     Alert, 
     StyleSheet, 
     ScrollView,
-    BackHandler
+    BackHandler,
+    StatusBar,
 } from 'react-native'
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
@@ -65,9 +66,12 @@ export default function AddProject({ navigation }) {
     
     // Update the header back button
     return (
+
         <ScrollView style={styles.scrollView}>
             <View style={styles.container}>
+            <StatusBar backgroundColor="#121212" barStyle="light-content" />
                 <View style={styles.headerContainer}>
+
                     <TouchableOpacity 
                         style={styles.backButton} 
                         onPress={() => navigation.replace('BottomTabNavigator', { screen: 'Home' })}

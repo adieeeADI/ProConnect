@@ -11,7 +11,28 @@ import {
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+const renderSkills = (skillsString) => {
+    if (!skillsString || typeof skillsString !== 'string') {
+        return [];
+    }
+    try {
+        return skillsString.trim()
+            .split(',')
+            .map(skill => skill.trim())
+            .filter(skill => skill.length > 0);
+    } catch (error) {
+        console.error('Error parsing skills:', error);
+        return [];
+    }
+};
+const BackButton = ({ navigation }) => (
+    <TouchableOpacity 
+        style={styles.backButton}
+        onPress={() => navigation.goBack()}
+    >
+        <MaterialCommunityIcons name="arrow-left" size={24} color="#fff" />
+    </TouchableOpacity>
+);
 
 export default function FreelancerDetails({ route, navigation }) {
     const { freelancer } = route.params;
@@ -102,6 +123,7 @@ export default function FreelancerDetails({ route, navigation }) {
 
     return (
         <View style={styles.mainContainer}>
+            <BackButton navigation={navigation} />
             <ScrollView style={styles.scrollView}>
                 <View style={styles.container}>
                     <View style={styles.header}>
@@ -140,19 +162,19 @@ export default function FreelancerDetails({ route, navigation }) {
                         </View>
     
                         <View style={styles.skillsContainer}>
-                            <Text style={styles.skillsTitle}>Skills</Text>
-                            <View style={styles.skillsWrapper}>
-                                {freelancer.skills ? (
-                                    freelancer.skills.split(',').map((skill, index) => (
-                                        <View key={index} style={styles.skillBadge}>
-                                            <Text style={styles.skillText}>{skill.trim()}</Text>
-                                        </View>
-                                    ))
-                                ) : (
-                                    <Text style={styles.noDataText}>No skills listed</Text>
-                                )}
-                            </View>
-                        </View>
+    <Text style={styles.skillsTitle}>Skills</Text>
+    <View style={styles.skillsWrapper}>
+        {freelancer.skills ? (
+            renderSkills(freelancer.skills).map((skill, index) => (
+                <View key={index} style={styles.skillBadge}>
+                    <Text style={styles.skillText}>{skill}</Text>
+                </View>
+            ))
+        ) : (
+            <Text style={styles.noDataText}>No skills listed</Text>
+        )}
+    </View>
+</View>
     
                         <View style={styles.descriptionContainer}>
                             <Text style={styles.descriptionTitle}>About</Text>
@@ -231,6 +253,11 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
     },
+    noDataText: {
+        color: '#8e8e8e',
+        fontSize: 14,
+        fontStyle: 'italic',
+    },
     profileImage: {
         width: 120,
         height: 120,
@@ -292,6 +319,20 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         gap: 8,
+    },
+    backButton: {
+        position: 'absolute',
+        top: 40,
+        left: 20,
+        zIndex: 10,
+        padding: 8,
+        borderRadius: 20,
+        backgroundColor: 'rgba(38, 38, 38, 0.7)',
+    },
+    mainContainer: {
+        flex: 1,
+        backgroundColor: '#121212',
+        position: 'relative', // Add this to handle absolute positioning of back button
     },
     skillBadge: {
         backgroundColor: '#363636',

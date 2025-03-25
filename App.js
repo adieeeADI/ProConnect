@@ -19,6 +19,11 @@ import Settings from './screens/Settings';
 import AddProject from './screens/AddProject';
 import JobListed from './screens/JobListed';
 import ProjectListed from './screens/ProjectListed';
+import UpdateProfile from './screens/UpdateProfile';
+import Subscription from './screens/Subscription';
+import ManageAccount from './screens/ManageAccount';
+import TermsPolicy from './screens/TermsPolicy';
+
 
 
 const Stack = createStackNavigator();
@@ -75,13 +80,16 @@ export default function App() {
                 <Stack.Screen name="ProfileSetup" component={ProfileSetup}options={{ headerShown: false }} />
                 <Stack.Screen name="ClientJobAdd" component={ClientJobAdd} />
                 <Stack.Screen name="ChatScreen" component={ChatScreen} options={{ title: "Chat" }} />
-                <Stack.Screen name="FreelancerDetails" component={FreelancerDetails} options={{ title: "Freelancer Details" }} />
+                <Stack.Screen name="FreelancerDetails" component={FreelancerDetails} options={{ headerShown: false }} />
                 <Stack.Screen name="ChatList" component={ChatList} />
                 <Stack.Screen name="Settings" component={Settings} />
                 <Stack.Screen  name="AddProject" component={AddProject} options={{ headerShown: false }} />
                 <Stack.Screen name="ProjectListed" component={ProjectListed}options={{ headerShown: false }}/>
                 <Stack.Screen name="JobListed" component={JobListed}options={{ headerShown: false }} />
-
+                <Stack.Screen name="UpdateProfile" component={UpdateProfile}options={{ headerShown: false }} />
+                <Stack.Screen name="Subscription" component={Subscription}options={{ headerShown: false }} />
+                <Stack.Screen name="ManageAccount" component={ManageAccount} options={{ headerShown: false }}/>
+                <Stack.Screen name="TermsPolicy" component={TermsPolicy}options={{ headerShown: false }} />
                 
                 {/* ✅ Bottom Tab Navigation */}
                 <Stack.Screen 

@@ -8,7 +8,8 @@ import {
     Alert,
     ScrollView,
     KeyboardAvoidingView,
-    Platform
+    Platform,
+    StatusBar
 } from 'react-native';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
@@ -21,16 +22,19 @@ export default function ProfileSetup({ navigation }) {
     const [bio, setBio] = useState('');
     const [skills, setSkills] = useState('');
     const [portfolio, setPortfolio] = useState('');
-    const [rate, setRate] = useState('');
     const [companyName, setCompanyName] = useState('');
-    const [budget, setBudget] = useState('');
-
+    const [hourlyRate, setHourlyRate] = useState('');
     const handleSubmit = async () => {
         if (!userType || !name || !bio) {
             Alert.alert('Error', 'Please fill all required fields.');
             return;
         }
-
+    
+        if (userType === 'Freelancer' && !hourlyRate) {
+            Alert.alert('Error', 'Please enter your hourly rate.');
+            return;
+        }
+    
         try {
             const user = auth().currentUser;
             if (!user) {
@@ -38,15 +42,25 @@ export default function ProfileSetup({ navigation }) {
                 return;
             }
             
+            const userData = {
+                userType,
+                name: name.trim(),
+                bio: bio.trim(),
+                createdAt: database.ServerValue.TIMESTAMP,
+                updatedAt: database.ServerValue.TIMESTAMP
+            };
+    
+            if (userType === 'Freelancer') {
+                userData.skills = skills.split(',').map(skill => skill.trim()).filter(Boolean);
+                userData.portfolio = portfolio.trim();
+                userData.rate = parseFloat(hourlyRate) || 0; // Add hourly rate
+            } else if (userType === 'Client') {
+                userData.companyName = companyName.trim();
+            }
+
             await database()
                 .ref(`/users/${user.uid}`)
-                .set({
-                    userType,
-                    name,
-                    bio,
-                    ...(userType === 'Freelancer' && { skills, portfolio, rate }),
-                    ...(userType === 'Client' && { companyName, budget })
-                });
+                .set(userData);
             
             Alert.alert(
                 'Success', 
@@ -55,7 +69,7 @@ export default function ProfileSetup({ navigation }) {
             );
         } catch (error) {
             console.error('Error:', error);
-            Alert.alert('Error', error.message);
+            Alert.alert('Error', 'Failed to create profile. Please try again.');
         }
     };
 
@@ -78,6 +92,7 @@ export default function ProfileSetup({ navigation }) {
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.container}
         >
+            <StatusBar backgroundColor="#000" barStyle="light-content" />
             <ScrollView 
                 style={styles.scrollView} 
                 showsVerticalScrollIndicator={false}
@@ -131,20 +146,20 @@ export default function ProfileSetup({ navigation }) {
                         textAlignVertical: 'top'
                     })}
 
-                    {userType === 'Freelancer' && (
-                        <>
-                            {renderInput('tools', 'Skills (comma separated)', skills, setSkills)}
-                            {renderInput('link-variant', 'Portfolio Link', portfolio, setPortfolio)}
-                            {renderInput('currency-usd', 'Hourly Rate ($)', rate, setRate, {
-                                keyboardType: 'numeric'
-                            })}
-                        </>
-                    )}
+{userType === 'Freelancer' && (
+    <>
+        {renderInput('tools', 'Skills (comma separated)', skills, setSkills)}
+        {renderInput('currency-usd', 'Hourly Rate ($)', hourlyRate, setHourlyRate, {
+            keyboardType: 'numeric',
+            placeholder: 'Enter your hourly rate'
+        })}
+        {renderInput('link-variant', 'Portfolio Link', portfolio, setPortfolio)}
+    </>
+)}
 
                     {userType === 'Client' && (
                         <>
                             {renderInput('domain', 'Company Name', companyName, setCompanyName)}
-                            {renderInput('cash-multiple', 'Budget Range', budget, setBudget)}
                         </>
                     )}
 
