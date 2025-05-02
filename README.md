@@ -27,16 +27,16 @@ ProConnect is a mobile app that helps clients and freelancers connect and work t
 - This is a basic version. More updates coming soon  
 - Please report bugs or issues for improvement  
 ## Screenshots
-<table>
+<table border="0">
   <tr>
     <th>Home</th>
     <th>Login</th>
     <th>Profile</th>
   </tr>
   <tr>
-    <td><img src="screenshots/SignUp.jpg" width="230"/></td>
-    <td><img src="screenshots/SignUp.jpg" width="230"/></td>
-    <td><img src="screenshots/SignUp.jpg" width="230"/></td>
+    <td><img src="screenshots/SignUp.jpg" width="235"/></td>
+    <td><img src="screenshots/SignUp.jpg" width="235"/></td>
+    <td><img src="screenshots/SignUp.jpg" width="235"/></td>
   </tr>
 
   <tr>
@@ -45,9 +45,9 @@ ProConnect is a mobile app that helps clients and freelancers connect and work t
     <th>Apply Job</th>
   </tr>
   <tr>
-    <td><img src="screenshots/jobs.png" width="200"/></td>
-    <td><img src="screenshots/jobdetails.png" width="200"/></td>
-    <td><img src="screenshots/apply.png" width="200"/></td>
+    <td><img src="screenshots/jobs.png" width="235"/></td>
+    <td><img src="screenshots/jobdetails.png" width="235"/></td>
+    <td><img src="screenshots/apply.png" width="235"/></td>
   </tr>
 
   <tr>
@@ -56,9 +56,9 @@ ProConnect is a mobile app that helps clients and freelancers connect and work t
     <th>Notifications</th>
   </tr>
   <tr>
-    <td><img src="screenshots/messages.png" width="230"/></td>
-    <td><img src="screenshots/settings.png" width="230"/></td>
-    <td><img src="screenshots/notifications.png" width="230"/></td>
+    <td><img src="screenshots/messages.png" width="235"/></td>
+    <td><img src="screenshots/settings.png" width="235"/></td>
+    <td><img src="screenshots/notifications.png" width="235"/></td>
   </tr>
 
   <tr>
@@ -67,8 +67,8 @@ ProConnect is a mobile app that helps clients and freelancers connect and work t
     <th>Account</th>
   </tr>
   <tr>
-    <td><img src="screenshots/review.png" width="200"/></td>
-    <td><img src="screenshots/payment.png" width="200"/></td>
-    <td><img src="screenshots/account.png" width="200"/></td>
+    <td><img src="screenshots/review.png" width="235"/></td>
+    <td><img src="screenshots/payment.png" width="235"/></td>
+    <td><img src="screenshots/account.png" width="235"/></td>
   </tr>
 </table>
