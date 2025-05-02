@@ -27,6 +27,8 @@ ProConnect is a mobile app that helps clients and freelancers connect and work t
 - This is a basic version. More updates coming soon  
 - Please report bugs or issues for improvement  
 ## Screenshots
-<img src="screenshots/SignUp.jpg" alt="Homepage" width="200"/>
-<img src="screenshots/SignUp.jpg" alt="Homepage" width="200"/>
-<img src="screenshots/SignUp.jpg" alt="Homepage" width="200"/>
+<p float="left">
+  <img src="screenshots/SignUp.jpg" width="200" />
+  <img src="screenshots/SignUp.jpg" width="200" />
+  <img src="screenshots/SignUp.jpg" width="200" />
+</p>
