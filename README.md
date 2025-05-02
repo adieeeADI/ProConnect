@@ -29,46 +29,46 @@ ProConnect is a mobile app that helps clients and freelancers connect and work t
 ## Screenshots
 <table border="0">
   <tr>
-    <th>Home</th>
+    <th>SignUp</th>
     <th>Login</th>
-    <th>Profile</th>
+    <th>Create Freelancer</th>
   </tr>
   <tr>
     <td><img src="screenshots/SignUp.jpg" width="235"/></td>
-    <td><img src="screenshots/SignUp.jpg" width="235"/></td>
-    <td><img src="screenshots/SignUp.jpg" width="235"/></td>
+    <td><img src="screenshots/login.jpg" width="235"/></td>
+    <td><img src="screenshots/createfreelancer.jpg" width="235"/></td>
   </tr>
 
   <tr>
-    <th>Job List</th>
-    <th>Job Details</th>
-    <th>Apply Job</th>
-  </tr>
-  <tr>
-    <td><img src="screenshots/jobs.png" width="235"/></td>
-    <td><img src="screenshots/jobdetails.png" width="235"/></td>
-    <td><img src="screenshots/apply.png" width="235"/></td>
-  </tr>
-
-  <tr>
-    <th>Messages</th>
+    <th>Create Client</th>
+    <th>HomePage - Freelancer</th>
     <th>Settings</th>
-    <th>Notifications</th>
   </tr>
   <tr>
-    <td><img src="screenshots/messages.png" width="235"/></td>
-    <td><img src="screenshots/settings.png" width="235"/></td>
-    <td><img src="screenshots/notifications.png" width="235"/></td>
+    <td><img src="screenshots/createclient.jpg" width="235"/></td>
+    <td><img src="screenshots/freelancerhomepage.jpg" width="235"/></td>
+    <td><img src="screenshots/settings.jpg" width="235"/></td>
   </tr>
 
   <tr>
-    <th>Review</th>
-    <th>Payment</th>
-    <th>Account</th>
+    <th>Update Profile</th>
+    <th>Manage Account</th>
+    <th>Chatlist Screen</th>
   </tr>
   <tr>
-    <td><img src="screenshots/review.png" width="235"/></td>
-    <td><img src="screenshots/payment.png" width="235"/></td>
-    <td><img src="screenshots/account.png" width="235"/></td>
+    <td><img src="screenshots/updateprofile.jpg" width="235"/></td>
+    <td><img src="screenshots/manageaccount.jpg" width="235"/></td>
+    <td><img src="screenshots/chatlistscreen.jpg" width="235"/></td>
+  </tr>
+
+  <tr>
+    <th>ChatScreen</th>
+    <th>Projects Screen</th>
+    <th>Freelancers Profile</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/chatscreen.jpg" width="235"/></td>
+    <td><img src="screenshots/projectsscreen.jpg" width="235"/></td>
+    <td><img src="screenshots/freelancerprofile.jpg" width="235"/></td>
   </tr>
 </table>
