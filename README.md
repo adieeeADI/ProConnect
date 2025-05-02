@@ -27,21 +27,48 @@ ProConnect is a mobile app that helps clients and freelancers connect and work t
 - This is a basic version. More updates coming soon  
 - Please report bugs or issues for improvement  
 ## Screenshots
-<div style="display: flex; gap: 10px;">
+<table>
+  <tr>
+    <th>Home</th>
+    <th>Login</th>
+    <th>Profile</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/SignUp.jpg" width="200"/></td>
+    <td><img src="screenshots/SignUp.jpg" width="200"/></td>
+    <td><img src="screenshots/SignUp.jpg" width="200"/></td>
+  </tr>
 
-  <div style="text-align: center;">
-    <p><strong>Home Screen</strong></p>
-    <img src="screenshots/SignUp.jpg" width="230"/>
-  </div>
+  <tr>
+    <th>Job List</th>
+    <th>Job Details</th>
+    <th>Apply Job</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/jobs.png" width="200"/></td>
+    <td><img src="screenshots/jobdetails.png" width="200"/></td>
+    <td><img src="screenshots/apply.png" width="200"/></td>
+  </tr>
 
-  <div style="text-align: center;">
-    <p><strong>Login Screen</strong></p>
-    <img src="screenshots/SignUp.jpg" width="230"/>
-  </div>
+  <tr>
+    <th>Messages</th>
+    <th>Settings</th>
+    <th>Notifications</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/messages.png" width="200"/></td>
+    <td><img src="screenshots/settings.png" width="200"/></td>
+    <td><img src="screenshots/notifications.png" width="200"/></td>
+  </tr>
 
-  <div style="text-align: center;">
-    <p><strong>Profile Screen</strong></p>
-    <img src="screenshots/SignUp.jpg" width="230"/>
-  </div>
-
-</div>
+  <tr>
+    <th>Review</th>
+    <th>Payment</th>
+    <th>Account</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/review.png" width="200"/></td>
+    <td><img src="screenshots/payment.png" width="200"/></td>
+    <td><img src="screenshots/account.png" width="200"/></td>
+  </tr>
+</table>
