@@ -28,3 +28,6 @@ ProConnect is a mobile app that helps clients and freelancers connect and work t
 - Please report bugs or issues for improvement  
 ## Screenshots
 ![ProConnect Screenshot](screenshots/SignUp.jpg)
+![ProConnect Screenshot](screenshots/SignUp.jpg)
+![ProConnect Screenshot](screenshots/SignUp.jpg)
+![ProConnect Screenshot](screenshots/SignUp.jpg)
